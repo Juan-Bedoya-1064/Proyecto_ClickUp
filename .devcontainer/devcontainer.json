@@ -1,0 +1,20 @@
+{
+  "name": "Sprint 2 - Catálogos y tickets",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "forwardPorts": [5000],
+  "portsAttributes": {
+    "5000": {
+      "label": "Aplicación",
+      "onAutoForward": "openBrowser"
+    }
+  },
+  "postCreateCommand": "pip install --user -r requirements.txt",
+  "postAttachCommand": "bash .devcontainer/iniciar.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-python.python"]
+    }
+  }
+}
