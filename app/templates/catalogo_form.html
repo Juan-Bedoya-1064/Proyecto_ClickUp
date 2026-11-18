@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}{{ titulo_catalogo }}{% endblock %}
+{% block body %}
+{% include "_topbar.html" %}
+<main class="content content--narrow">
+  <p class="crumb"><a href="{{ url_for('catalogos.lista') }}">Catálogos</a> / {{ titulo_catalogo }}</p>
+  <h1>{{ 'Nuevo valor' if es_nuevo else 'Editar valor' }}</h1>
+  <form class="panel form--wide" method="post" novalidate>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+    <div class="field {% if errores.nombre %}field--error{% endif %}">
+      <label for="nombre">Nombre</label>
+      <input id="nombre" name="nombre" type="text" maxlength="100" value="{{ datos.nombre }}" required autofocus>
+      {% if errores.nombre %}<p class="field__msg">{{ errores.nombre }}</p>{% endif %}
+    </div>
+
+    {% if con_periodicidad %}
+    <div class="field {% if errores.periodicidad %}field--error{% endif %}">
+      <label for="periodicidad">Mantenimiento preventivo cada (meses)</label>
+      <input id="periodicidad" name="periodicidad" type="number" min="1" max="60" value="{{ datos.periodicidad }}">
+      {% if errores.periodicidad %}<p class="field__msg">{{ errores.periodicidad }}</p>
+      {% else %}<p class="field__ayuda">Déjalo vacío si a este tipo de equipo no le aplica mantenimiento preventivo.</p>{% endif %}
+    </div>
+    {% endif %}
+
+    <div class="actions">
+      <button class="btn btn--primary" type="submit">Guardar</button>
+      <a class="btn btn--ghost" href="{{ url_for('catalogos.lista') }}">Cancelar</a>
+    </div>
+  </form>
+</main>
+{% endblock %}

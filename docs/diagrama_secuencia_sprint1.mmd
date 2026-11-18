@@ -1,0 +1,144 @@
+sequenceDiagram
+    autonumber
+    participant U as Usuario
+    participant N as Navegador
+    participant F as Flask (rutas)
+    participant S as security.py
+    participant A as autorizacion.py
+    participant D as MySQL
+    Note over U,D: HU-01 · Iniciar y cerrar sesión
+    Note over N,F: Iniciar sesión
+    U->>N: Escribe su identificador de acceso y su contraseña
+    N->>F: POST /login (identificador, password, csrf_token)
+    F->>F: validar_credenciales(): solo valida el formato
+    alt formato inválido
+        F-->>N: 400 · mensaje por campo
+    else formato válido
+        F->>D: SELECT usuarios WHERE identificador_acceso = ?
+        D-->>F: fila del usuario, o ninguna
+        F->>F: autenticar(): compara contrasena_hash (siempre verifica un hash) y revisa activo
+        alt cuenta inexistente, contraseña incorrecta o cuenta inactiva
+            F-->>N: 401 · «Identificador o contraseña incorrectos.» (el mismo mensaje en los tres casos)
+        else credenciales válidas y cuenta activa
+            F->>S: iniciar_sesion(usuario)
+            S->>D: INSERT sesiones (token_hash, expira_en)
+            F-->>N: 302 /panel + cookie HttpOnly con el token (en la base solo se guarda su hash)
+        end
+    end
+    Note over N,F: Cerrar sesión
+    N->>F: POST /logout (csrf_token)
+    F->>S: cerrar_sesion()
+    S->>D: UPDATE sesiones SET cerrada_en = ahora
+    F-->>N: 302 /login + cookie borrada
+    N->>F: GET /panel con la cookie anterior
+    F->>S: cargar_usuario(): busca la sesión por token_hash
+    S->>D: SELECT sesiones WHERE token_hash = ?
+    D-->>S: sesión con cerrada_en
+    F-->>N: 302 /login · sin acceso a funciones protegidas
+    Note over U,D: HU-02 · Control de acceso por rol y participación en el ticket
+    Note over N,D: En cada petición, antes de la ruta: cargar_usuario() exige sesión no cerrada, no vencida y cuenta activa (usuarios.activo). Si falla, 302 /login. Los rechazos de abajo ocurren ANTES de escribir, por eso la base de datos no cambia.
+    Note over N,F: Ver un ticket (también por acceso directo a la URL)
+    N->>F: GET /tickets/(id)
+    F->>A: permiso_required('tickets.ver')
+    A->>D: SELECT permisos del rol (roles_permisos)
+    alt el rol no tiene tickets.ver
+        F-->>N: 403 · «Tu rol no permite esta acción»
+    else el rol tiene tickets.ver
+        F->>A: ticket_visible_o_404(id)
+        A->>D: SELECT tickets + participaciones_ticket
+        alt no existe, o no participa y no tiene tickets.ver_todos
+            F-->>N: 404 · misma respuesta en ambos casos (no revela si existe)
+        else participa en el ticket o tiene tickets.ver_todos
+            F-->>N: 200 · detalle del ticket y sus participantes
+        end
+    end
+    Note over N,F: Editar el título de un ticket
+    N->>F: POST /tickets/(id)/editar (titulo)
+    F->>A: permiso_required('tickets.editar') y ticket_editable_o_error(id)
+    A->>D: SELECT permisos, tickets y participaciones_ticket
+    alt el rol no tiene tickets.editar
+        F-->>N: 403
+    else no existe, o no participa y no tiene tickets.ver_todos
+        F-->>N: 404
+    else ve el ticket, pero no es responsable y no tiene tickets.editar_todos
+        F-->>N: 403
+    else es responsable del ticket, o tiene tickets.editar_todos
+        F->>F: validar_titulo(): de 3 a 200 caracteres
+        alt título inválido
+            F-->>N: 400 · mensaje en el campo
+        else título válido
+            F->>D: UPDATE tickets SET titulo
+            F-->>N: 302 /tickets/(id)
+        end
+    end
+    Note over N,F: Crear un ticket (Solicitante o Administrador)
+    N->>F: POST /tickets/registrar (formulario)
+    F->>A: permiso_required('tickets.crear')
+    A->>D: SELECT permisos del rol (roles_permisos)
+    alt el rol no tiene tickets.crear (por ejemplo, Responsable)
+        F-->>N: 403
+    else el rol tiene tickets.crear
+        F->>D: INSERT tickets + INSERT participaciones_ticket (quien crea queda como solicitante)
+        F-->>N: 302 /tickets/(id)
+    end
+    Note over N,F: Asignar una persona a un ticket (Administrador)
+    N->>F: POST /tickets/(id)/participantes (usuario_id, tipo_participacion)
+    F->>A: permiso_required('tickets.asignar')
+    A->>D: SELECT permisos del rol (roles_permisos)
+    alt el rol no tiene tickets.asignar
+        F-->>N: 403
+    else el rol tiene tickets.asignar
+        F->>F: valida tipo (solicitante o responsable), cuenta activa y rol compatible
+        alt datos inválidos
+            F-->>N: 400 · mensaje
+        else datos válidos
+            F->>D: INSERT participaciones_ticket (ticket_id, usuario_id, tipo_participacion)
+            alt ya existe esa participación (índice único)
+                F-->>N: 409 · «Esa persona ya participa en el ticket con ese tipo»
+            else participación nueva
+                F-->>N: 302 /tickets/(id)
+            end
+        end
+    end
+    Note over U,D: HU-03 · Gestión de usuarios (módulo del compañero · las rutas se modelan según el texto de la HU)
+    Note over N,D: Se dibuja desde el texto de la HU-03. Si las rutas o funciones del módulo de tu compañero se llaman distinto, edita estas líneas en docs/generar_diagrama.py y vuelve a generar.
+    Note over N,F: Registrar un usuario (Administrador)
+    U->>N: Completa el formulario: identificador_acceso, nombre_completo, correo (opcional), rol y contraseña
+    N->>F: POST registrar usuario
+    F->>A: verifica que el rol puede gestionar usuarios
+    A->>D: SELECT permisos del rol (roles_permisos)
+    alt el rol no es Administrador
+        F-->>N: 403
+    else el rol es Administrador
+        F->>F: valida obligatorios, formato y contraseña
+        alt datos inválidos
+            F-->>N: 400 · mensaje por campo
+        else datos válidos
+            F->>D: SELECT usuarios WHERE identificador_acceso = ?
+            D-->>F: existe o no
+            alt identificador duplicado
+                F-->>N: 409 · «El identificador ya está en uso»
+            else identificador libre
+                F->>D: INSERT usuarios (contrasena_hash, rol_id, activo = true)
+                F-->>N: 302 listado de usuarios
+            end
+        end
+    end
+    Note over N,F: Actualizar rol y estado de una cuenta (Administrador)
+    N->>F: POST actualizar usuario (nombre_completo, correo, rol_id)
+    F->>D: UPDATE usuarios SET ..., rol_id, actualizado_en (mismas comprobaciones de permiso y validación)
+    F-->>N: 302 listado de usuarios
+    N->>F: POST cambiar estado (activo = false)
+    F->>D: UPDATE usuarios SET activo = false, actualizado_en
+    F-->>N: 302 listado de usuarios
+    Note over N,F: Efecto de la cuenta desactivada en HU-01 y HU-02
+    N->>F: POST /login con la cuenta desactivada
+    F->>F: autenticar(): usuarios.activo = false
+    F-->>N: 401 · el mismo mensaje genérico que cualquier credencial inválida
+    N->>F: GET /tickets con una sesión que ya estaba abierta
+    F->>S: cargar_usuario(): la cuenta ya no está activa
+    S->>D: UPDATE sesiones SET cerrada_en = ahora
+    F-->>N: 302 /login · pierde el acceso en la siguiente petición
+    N->>F: GET /tickets tras cambiarle el rol (por ejemplo, Responsable a Solicitante)
+    F->>A: los permisos se leen de roles_permisos en cada petición
+    F-->>N: 403 en las acciones que el nuevo rol no permite

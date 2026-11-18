@@ -1,0 +1,9 @@
+Flask>=3.0,<4
+Flask-SQLAlchemy>=3.1,<4
+Flask-WTF>=1.2,<2
+PyMySQL>=1.1,<2          # controlador MySQL/MariaDB (puro Python, sin compilar)
+cryptography>=42         # requerido por PyMySQL para la autenticación de MySQL 8
+python-dotenv>=1.0       # lee el archivo .env
+tzdata                   # zonas horarias en Windows (America/Bogota)
+waitress>=3.0            # servidor de producción (funciona en Windows y Linux)
+pytest>=8.0

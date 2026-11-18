@@ -1,0 +1,16 @@
+<header class="topbar">
+  <a class="topbar__brand" href="{{ url_for('main.panel') }}">{{ config.APP_NAME }}</a>
+  <nav class="topbar__nav" aria-label="Principal">
+    <a href="{{ url_for('main.panel') }}">Mi panel</a>
+    {% if puede('tickets.ver') %}<a href="{{ url_for('tickets.lista') }}">Tickets</a>{% endif %}
+    {% if puede('equipos.ver') %}<a href="{{ url_for('equipos.lista') }}">Equipos</a>{% endif %}
+    {% if puede('catalogos.administrar') %}<a href="{{ url_for('catalogos.lista') }}">Catálogos</a>{% endif %}
+  </nav>
+  <div class="topbar__user">
+    <span>{{ usuario_actual.nombre_completo }} <small>· {{ usuario_actual.rol.nombre }}</small></span>
+    <form method="post" action="{{ url_for('auth.logout') }}">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <button class="btn btn--ghost" type="submit">Cerrar sesión</button>
+    </form>
+  </div>
+</header>

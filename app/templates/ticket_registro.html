@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}Registrar ticket{% endblock %}
+{% block body %}
+{% include "_topbar.html" %}
+<main class="content content--narrow">
+  <p class="crumb"><a href="{{ url_for('tickets.lista') }}">Tickets</a> / Registrar</p>
+  <h1>Registrar ticket</h1>
+  <p class="lead">Solicitud de mantenimiento sobre un equipo. Quedas como solicitante y al guardar recibes un folio para consultarla.</p>
+
+  {% if errores %}<div class="alert alert--error" role="alert">Revisa los campos marcados. Si habías elegido un archivo, vuelve a seleccionarlo.</div>{% endif %}
+
+  <form class="panel form--wide" method="post" enctype="multipart/form-data" novalidate>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+    <div class="field {% if errores.titulo %}field--error{% endif %}">
+      <label for="titulo">Asunto</label>
+      <input id="titulo" name="titulo" type="text" maxlength="200" value="{{ datos.titulo }}" placeholder="Ej. La impresora no enciende" required autofocus>
+      {% if errores.titulo %}<p class="field__msg">{{ errores.titulo }}</p>{% endif %}
+    </div>
+
+    <div class="field {% if errores.equipo_id %}field--error{% endif %}">
+      <label for="equipo_id">Equipo</label>
+      <select id="equipo_id" name="equipo_id" required>
+        <option value="">Elige un equipo</option>
+        {% for e in equipos %}
+          <option value="{{ e.id }}" {% if e.id == datos.equipo_id %}selected{% endif %}>{{ e.codigo }} · {{ e.nombre }} ({{ e.ubicacion.nombre }})</option>
+        {% endfor %}
+      </select>
+      {% if errores.equipo_id %}<p class="field__msg">{{ errores.equipo_id }}</p>
+      {% else %}<p class="field__ayuda">Solo aparecen los equipos activos.</p>{% endif %}
+    </div>
+
+    <div class="field {% if errores.categoria_id %}field--error{% endif %}">
+      <label for="categoria_id">Categoría</label>
+      <select id="categoria_id" name="categoria_id" required>
+        <option value="">Elige una categoría</option>
+        {% for c in categorias %}
+          <option value="{{ c.id }}" {% if c.id == datos.categoria_id %}selected{% endif %}>{{ c.nombre }}</option>
+        {% endfor %}
+      </select>
+      {% if errores.categoria_id %}<p class="field__msg">{{ errores.categoria_id }}</p>{% endif %}
+    </div>
+
+    <div class="field {% if errores.prioridad %}field--error{% endif %}">
+      <label for="prioridad">Prioridad</label>
+      <select id="prioridad" name="prioridad" required>
+        <option value="">Elige una prioridad</option>
+        {% for clave, nombre in prioridades.items() %}
+          <option value="{{ clave }}" {% if clave == datos.prioridad %}selected{% endif %}>{{ nombre }}</option>
+        {% endfor %}
+      </select>
+      {% if errores.prioridad %}<p class="field__msg">{{ errores.prioridad }}</p>{% endif %}
+    </div>
+
+    <div class="field {% if errores.situacion %}field--error{% endif %}">
+      <label for="situacion">Situación</label>
+      <textarea id="situacion" name="situacion" rows="5" maxlength="2000" required>{{ datos.situacion }}</textarea>
+      {% if errores.situacion %}<p class="field__msg">{{ errores.situacion }}</p>
+      {% else %}<p class="field__ayuda">Cuenta qué pasa con el equipo y desde cuándo.</p>{% endif %}
+    </div>
+
+    <div class="field {% if errores.detectado_por %}field--error{% endif %}">
+      <label for="detectado_por">Detectado por</label>
+      <input id="detectado_por" name="detectado_por" type="text" maxlength="150" value="{{ datos.detectado_por }}" required>
+      {% if errores.detectado_por %}<p class="field__msg">{{ errores.detectado_por }}</p>
+      {% else %}<p class="field__ayuda">Persona que notó el problema. Cámbialo si no fuiste tú.</p>{% endif %}
+    </div>
+
+    <div class="field {% if errores.fecha_deteccion %}field--error{% endif %}">
+      <label for="fecha_deteccion">Fecha de detección</label>
+      <input id="fecha_deteccion" name="fecha_deteccion" type="date" max="{{ hoy }}" value="{{ datos.fecha_deteccion }}" required>
+      {% if errores.fecha_deteccion %}<p class="field__msg">{{ errores.fecha_deteccion }}</p>{% endif %}
+    </div>
+
+    <div class="field {% if errores.evidencia %}field--error{% endif %}">
+      <label for="evidencia">Evidencia (opcional)</label>
+      <input id="evidencia" name="evidencia" type="file" accept=".jpg,.jpeg,.png,.pdf">
+      {% if errores.evidencia %}<p class="field__msg">{{ errores.evidencia }}</p>
+      {% else %}<p class="field__ayuda">Una foto o documento: JPG, PNG o PDF de máximo 10 MB.</p>{% endif %}
+    </div>
+
+    <div class="actions">
+      <button class="btn btn--primary" type="submit">Registrar ticket</button>
+      <a class="btn btn--ghost" href="{{ url_for('tickets.lista') }}">Cancelar</a>
+    </div>
+  </form>
+</main>
+{% endblock %}

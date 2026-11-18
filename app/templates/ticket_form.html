@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}{{ titulo_pagina }}{% endblock %}
+{% block body %}
+{% include "_topbar.html" %}
+<main class="content content--narrow">
+  <h1>{{ titulo_pagina }}</h1>
+  <form class="panel form--wide" method="post" novalidate>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="field {% if error %}field--error{% endif %}">
+      <label for="titulo">Título</label>
+      <input id="titulo" name="titulo" type="text" maxlength="200" value="{{ titulo }}" required autofocus
+             {% if error %}aria-invalid="true" aria-describedby="titulo-error"{% endif %}>
+      {% if error %}<p class="field__msg" id="titulo-error">{{ error }}</p>{% endif %}
+    </div>
+    <div class="actions">
+      <button class="btn btn--primary" type="submit">Guardar</button>
+      <a class="btn btn--ghost" href="{{ url_for('tickets.lista') }}">Cancelar</a>
+    </div>
+  </form>
+</main>
+{% endblock %}

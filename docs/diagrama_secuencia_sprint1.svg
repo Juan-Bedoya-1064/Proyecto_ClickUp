@@ -1,0 +1,467 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1570" height="6829" viewBox="0 0 1570 6829" font-family="Helvetica Neue, Arial, DejaVu Sans, sans-serif"><rect width="100%" height="100%" fill="#ffffff"/><defs><marker id="flecha-req" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#10222b"/></marker><marker id="flecha-res" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#5a6d76"/></marker><marker id="flecha-err" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#a42a1f"/></marker><marker id="flecha-ok" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#1f6b4d"/></marker></defs><text x="30" y="34" font-size="22" font-weight="700" fill="#10222b">Sprint 1 · Acceso y usuarios</text><text x="30" y="56" font-size="13" fill="#5a6d76">Diagrama de secuencia de HU-01, HU-02 y HU-03 · nombres de rutas, funciones y tablas tal como están en el código</text><g font-size="12" fill="#5a6d76"><line x1="1050" y1="40" x2="1080" y2="40" stroke="#10222b" stroke-width="1.6"/><text x="1086" y="44">petición</text><line x1="1160" y1="40" x2="1190" y2="40" stroke="#5a6d76" stroke-width="1.6" stroke-dasharray="6 4"/><text x="1196" y="44">respuesta</text><line x1="1280" y1="40" x2="1310" y2="40" stroke="#1f6b4d" stroke-width="1.6" stroke-dasharray="6 4"/><text x="1316" y="44">permitido</text><line x1="1400" y1="40" x2="1430" y2="40" stroke="#a42a1f" stroke-width="1.6" stroke-dasharray="6 4"/><text x="1436" y="44">rechazado</text></g><rect x="35.0" y="60" width="170" height="46" rx="8" fill="#10222b"/><text x="120" y="80" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">Usuario</text><text x="120" y="96" font-size="10.5" fill="#9fb7bf" text-anchor="middle">según su rol</text><rect x="260.0" y="60" width="170" height="46" rx="8" fill="#10222b"/><text x="345" y="80" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">Navegador</text><text x="345" y="96" font-size="10.5" fill="#9fb7bf" text-anchor="middle">cliente</text><rect x="555.0" y="60" width="170" height="46" rx="8" fill="#10222b"/><text x="640" y="80" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">Flask</text><text x="640" y="96" font-size="10.5" fill="#9fb7bf" text-anchor="middle">auth · tickets · main</text><rect x="840.0" y="60" width="170" height="46" rx="8" fill="#10222b"/><text x="925" y="80" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">security.py</text><text x="925" y="96" font-size="10.5" fill="#9fb7bf" text-anchor="middle">sesión del servidor</text><rect x="1110.0" y="60" width="170" height="46" rx="8" fill="#10222b"/><text x="1195" y="80" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">autorizacion.py</text><text x="1195" y="96" font-size="10.5" fill="#9fb7bf" text-anchor="middle">roles y participación</text><rect x="1360.0" y="60" width="170" height="46" rx="8" fill="#10222b"/><text x="1445" y="80" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">MySQL</text><text x="1445" y="96" font-size="10.5" fill="#9fb7bf" text-anchor="middle">base de datos</text>
+<rect x="20" y="156" width="1530" height="40" rx="8" fill="#1d4e5a"/>
+<rect x="20" y="1603" width="1530" height="40" rx="8" fill="#3b4a8f"/>
+<rect x="20" y="4629" width="1530" height="40" rx="8" fill="#6a4a1f"/>
+<line x1="120" y1="112" x2="120" y2="6729" stroke="#9db0b7" stroke-width="1.2" stroke-dasharray="3 5"/><line x1="345" y1="112" x2="345" y2="6729" stroke="#9db0b7" stroke-width="1.2" stroke-dasharray="3 5"/><line x1="640" y1="112" x2="640" y2="6729" stroke="#9db0b7" stroke-width="1.2" stroke-dasharray="3 5"/><line x1="925" y1="112" x2="925" y2="6729" stroke="#9db0b7" stroke-width="1.2" stroke-dasharray="3 5"/><line x1="1195" y1="112" x2="1195" y2="6729" stroke="#9db0b7" stroke-width="1.2" stroke-dasharray="3 5"/><line x1="1445" y1="112" x2="1445" y2="6729" stroke="#9db0b7" stroke-width="1.2" stroke-dasharray="3 5"/>
+<rect x="287" y="742" width="1216" height="330" rx="6" fill="none" stroke="#9db0b7" stroke-width="1.3"/>
+<rect x="275" y="438" width="1240" height="662" rx="6" fill="none" stroke="#9db0b7" stroke-width="1.3"/>
+<rect x="287" y="2174" width="1216" height="214" rx="6" fill="none" stroke="#9db0b7" stroke-width="1.3"/>
+<rect x="275" y="1917" width="1240" height="499" rx="6" fill="none" stroke="#9db0b7" stroke-width="1.3"/>
+<rect x="287" y="3007" width="1216" height="227" rx="6" fill="none" stroke="#9db0b7" stroke-width="1.3"/>
+<rect x="275" y="2626" width="1240" height="636" rx="6" fill="none" stroke="#9db0b7" stroke-width="1.3"/>
+<rect x="275" y="3472" width="1240" height="227" rx="6" fill="none" stroke="#9db0b7" stroke-width="1.3"/>
+<rect x="299" y="4326" width="1192" height="199" rx="6" fill="none" stroke="#9db0b7" stroke-width="1.3"/>
+<rect x="287" y="4142" width="1216" height="411" rx="6" fill="none" stroke="#9db0b7" stroke-width="1.3"/>
+<rect x="275" y="3924" width="1240" height="657" rx="6" fill="none" stroke="#9db0b7" stroke-width="1.3"/>
+<rect x="299" y="5446" width="1192" height="242" rx="6" fill="none" stroke="#9db0b7" stroke-width="1.3"/>
+<rect x="287" y="5219" width="1216" height="497" rx="6" fill="none" stroke="#9db0b7" stroke-width="1.3"/>
+<rect x="275" y="5016" width="1240" height="728" rx="6" fill="none" stroke="#9db0b7" stroke-width="1.3"/>
+<text x="40" y="182" font-size="16" font-weight="700" fill="#fff">HU-01</text><text x="104" y="182" font-size="15" fill="#fff">Iniciar y cerrar sesión</text>
+<text x="275" y="226" font-size="13" font-weight="700" fill="#1d4e5a">Iniciar sesión</text>
+<line x1="275" y1="233" x2="1530" y2="233" stroke="#1d4e5a" stroke-width="1" opacity=".35"/>
+<rect x="135.3" y="252.0" width="194.3" height="17" fill="#fff" opacity=".88"/>
+<text x="232.5" y="264.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">1. Escribe su identificador</text>
+<rect x="142.2" y="267.0" width="180.5" height="17" fill="#fff" opacity=".88"/>
+<text x="232.5" y="279.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">de acceso y su contraseña</text>
+<line x1="126" y1="298" x2="338" y2="298" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="385.0" y="310.0" width="215.0" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="322.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">2. POST /login (identificador,</text>
+<rect x="416.1" y="325.0" width="152.9" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="337.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">password, csrf_token)</text>
+<line x1="351" y1="356" x2="633" y2="356" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<path d="M646 380 h34 v38 h-30" fill="none" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="684.0" y="382.0" width="221.9" height="17" fill="#fff" opacity=".88"/>
+<text x="688.0" y="394.0" font-size="12" fill="#10222b" text-anchor="start" font-weight="normal">3. validar_credenciales(): solo</text>
+<rect x="684.0" y="397.0" width="125.3" height="17" fill="#fff" opacity=".88"/>
+<text x="688.0" y="409.0" font-size="12" fill="#10222b" text-anchor="start" font-weight="normal">valida el formato</text>
+<path d="M275 448 h46 v16 l-8 8 h-38 z" fill="#9db0b7" opacity=".55"/>
+<text x="283" y="465" font-size="12" font-weight="700" fill="#10222b">alt</text>
+<rect x="331.0" y="454.0" width="132.2" height="17" fill="#fff" opacity=".88"/>
+<text x="335.0" y="466.0" font-size="12" fill="#5a6d76" text-anchor="start" font-weight="600">[formato inválido]</text>
+<rect x="398.8" y="482.0" width="187.4" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="494.0" font-size="12" fill="#a42a1f" text-anchor="middle" font-weight="normal">4. 400 · mensaje por campo</text>
+<line x1="634" y1="513" x2="352" y2="513" stroke="#a42a1f" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#flecha-err)"/>
+<line x1="275" y1="539" x2="1515" y2="539" stroke="#9db0b7" stroke-width="1.2" stroke-dasharray="7 5"/>
+<rect x="281.0" y="545.0" width="118.4" height="17" fill="#fff" opacity=".88"/>
+<text x="285.0" y="557.0" font-size="12" fill="#5a6d76" text-anchor="start" font-weight="600">[formato válido]</text>
+<rect x="869.5" y="571.0" width="346.1" height="17" fill="#fff" opacity=".88"/>
+<text x="1042.5" y="583.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">5. SELECT usuarios WHERE identificador_acceso = ?</text>
+<line x1="646" y1="602" x2="1438" y2="602" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="935.0" y="614.0" width="215.0" height="17" fill="#fff" opacity=".88"/>
+<text x="1042.5" y="626.0" font-size="12" fill="#5a6d76" text-anchor="middle" font-weight="normal">6. fila del usuario, o ninguna</text>
+<line x1="1439" y1="645" x2="647" y2="645" stroke="#5a6d76" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#flecha-res)"/>
+<path d="M646 669 h34 v53 h-30" fill="none" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="684.0" y="671.0" width="173.6" height="17" fill="#fff" opacity=".88"/>
+<text x="688.0" y="683.0" font-size="12" fill="#10222b" text-anchor="start" font-weight="normal">7. autenticar(): compara</text>
+<rect x="684.0" y="686.0" width="235.7" height="17" fill="#fff" opacity=".88"/>
+<text x="688.0" y="698.0" font-size="12" fill="#10222b" text-anchor="start" font-weight="normal">contrasena_hash (siempre verifica</text>
+<rect x="684.0" y="701.0" width="173.6" height="17" fill="#fff" opacity=".88"/>
+<text x="688.0" y="713.0" font-size="12" fill="#10222b" text-anchor="start" font-weight="normal">un hash) y revisa activo</text>
+<path d="M287 752 h46 v16 l-8 8 h-38 z" fill="#9db0b7" opacity=".55"/>
+<text x="295" y="769" font-size="12" font-weight="700" fill="#10222b">alt</text>
+<rect x="343.0" y="758.0" width="428.9" height="17" fill="#fff" opacity=".88"/>
+<text x="347.0" y="770.0" font-size="12" fill="#5a6d76" text-anchor="start" font-weight="600">[cuenta inexistente, contraseña incorrecta o cuenta inactiva]</text>
+<rect x="364.3" y="786.0" width="256.4" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="798.0" font-size="12" fill="#a42a1f" text-anchor="middle" font-weight="normal">8. 401 · «Identificador o contraseña</text>
+<rect x="357.4" y="801.0" width="270.2" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="813.0" font-size="12" fill="#a42a1f" text-anchor="middle" font-weight="normal">incorrectos.» (el mismo mensaje en los</text>
+<rect x="450.6" y="816.0" width="83.9" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="828.0" font-size="12" fill="#a42a1f" text-anchor="middle" font-weight="normal">tres casos)</text>
+<line x1="634" y1="847" x2="352" y2="847" stroke="#a42a1f" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#flecha-err)"/>
+<line x1="287" y1="873" x2="1503" y2="873" stroke="#9db0b7" stroke-width="1.2" stroke-dasharray="7 5"/>
+<rect x="293.0" y="879.0" width="270.2" height="17" fill="#fff" opacity=".88"/>
+<text x="297.0" y="891.0" font-size="12" fill="#5a6d76" text-anchor="start" font-weight="600">[credenciales válidas y cuenta activa]</text>
+<rect x="688.8" y="905.0" width="187.4" height="17" fill="#fff" opacity=".88"/>
+<text x="782.5" y="917.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">9. iniciar_sesion(usuario)</text>
+<line x1="646" y1="936" x2="918" y2="936" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="1032.7" y="948.0" width="304.7" height="17" fill="#fff" opacity=".88"/>
+<text x="1185.0" y="960.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">10. INSERT sesiones (token_hash, expira_en)</text>
+<line x1="931" y1="979" x2="1438" y2="979" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="364.3" y="991.0" width="256.4" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="1003.0" font-size="12" fill="#1f6b4d" text-anchor="middle" font-weight="normal">11. 302 /panel + cookie HttpOnly con</text>
+<rect x="357.4" y="1006.0" width="270.2" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="1018.0" font-size="12" fill="#1f6b4d" text-anchor="middle" font-weight="normal">el token (en la base solo se guarda su</text>
+<rect x="471.2" y="1021.0" width="42.5" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="1033.0" font-size="12" fill="#1f6b4d" text-anchor="middle" font-weight="normal">hash)</text>
+<line x1="634" y1="1052" x2="352" y2="1052" stroke="#1f6b4d" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#flecha-ok)"/>
+<text x="275" y="1132" font-size="13" font-weight="700" fill="#1d4e5a">Cerrar sesión</text>
+<line x1="275" y1="1139" x2="1530" y2="1139" stroke="#1d4e5a" stroke-width="1" opacity=".35"/>
+<rect x="388.4" y="1158.0" width="208.1" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="1170.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">12. POST /logout (csrf_token)</text>
+<line x1="351" y1="1189" x2="633" y2="1189" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="713.0" y="1201.0" width="139.1" height="17" fill="#fff" opacity=".88"/>
+<text x="782.5" y="1213.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">13. cerrar_sesion()</text>
+<line x1="646" y1="1232" x2="918" y2="1232" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="1036.1" y="1244.0" width="297.8" height="17" fill="#fff" opacity=".88"/>
+<text x="1185.0" y="1256.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">14. UPDATE sesiones SET cerrada_en = ahora</text>
+<line x1="931" y1="1275" x2="1438" y2="1275" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="381.6" y="1287.0" width="221.9" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="1299.0" font-size="12" fill="#5a6d76" text-anchor="middle" font-weight="normal">15. 302 /login + cookie borrada</text>
+<line x1="634" y1="1318" x2="352" y2="1318" stroke="#5a6d76" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#flecha-res)"/>
+<rect x="360.8" y="1330.0" width="263.3" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="1342.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">16. GET /panel con la cookie anterior</text>
+<line x1="351" y1="1361" x2="633" y2="1361" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="650.8" y="1373.0" width="263.3" height="17" fill="#fff" opacity=".88"/>
+<text x="782.5" y="1385.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">17. cargar_usuario(): busca la sesión</text>
+<rect x="730.2" y="1388.0" width="104.6" height="17" fill="#fff" opacity=".88"/>
+<text x="782.5" y="1400.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">por token_hash</text>
+<line x1="646" y1="1419" x2="918" y2="1419" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="1043.0" y="1431.0" width="284.0" height="17" fill="#fff" opacity=".88"/>
+<text x="1185.0" y="1443.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">18. SELECT sesiones WHERE token_hash = ?</text>
+<line x1="931" y1="1462" x2="1438" y2="1462" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="1094.8" y="1474.0" width="180.5" height="17" fill="#fff" opacity=".88"/>
+<text x="1185.0" y="1486.0" font-size="12" fill="#5a6d76" text-anchor="middle" font-weight="normal">19. sesión con cerrada_en</text>
+<line x1="1439" y1="1505" x2="932" y2="1505" stroke="#5a6d76" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#flecha-res)"/>
+<rect x="388.4" y="1517.0" width="208.1" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="1529.0" font-size="12" fill="#a42a1f" text-anchor="middle" font-weight="normal">20. 302 /login · sin acceso a</text>
+<rect x="419.5" y="1532.0" width="146.0" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="1544.0" font-size="12" fill="#a42a1f" text-anchor="middle" font-weight="normal">funciones protegidas</text>
+<line x1="634" y1="1563" x2="352" y2="1563" stroke="#a42a1f" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#flecha-err)"/>
+<text x="40" y="1629" font-size="16" font-weight="700" fill="#fff">HU-02</text><text x="104" y="1629" font-size="15" fill="#fff">Control de acceso por rol y participación en el ticket</text>
+<rect x="255" y="1673" width="1280" height="46" rx="6" fill="#fff6dd" stroke="#e7a21d" stroke-width="1"/>
+<text x="267.0" y="1692.0" font-size="12" fill="#5b4300" text-anchor="start" font-weight="normal">En cada petición, antes de la ruta: cargar_usuario() exige sesión no cerrada, no vencida y cuenta activa (usuarios.activo). Si falla, 302 /login. Los rechazos de abajo ocurren ANTES</text>
+<text x="267.0" y="1707.0" font-size="12" fill="#5b4300" text-anchor="start" font-weight="normal">de escribir, por eso la base de datos no cambia.</text>
+<text x="275" y="1739" font-size="13" font-weight="700" fill="#3b4a8f">Ver un ticket (también por acceso directo a la URL)</text>
+<line x1="275" y1="1746" x2="1530" y2="1746" stroke="#3b4a8f" stroke-width="1" opacity=".35"/>
+<rect x="419.5" y="1765.0" width="146.0" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="1777.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">1. GET /tickets/{id}</text>
+<line x1="351" y1="1796" x2="633" y2="1796" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="796.2" y="1808.0" width="242.6" height="17" fill="#fff" opacity=".88"/>
+<text x="917.5" y="1820.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">2. permiso_required(&#x27;tickets.ver&#x27;)</text>
+<line x1="646" y1="1839" x2="1188" y2="1839" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="1226.3" y="1851.0" width="187.4" height="17" fill="#fff" opacity=".88"/>
+<text x="1320.0" y="1863.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">3. SELECT permisos del rol</text>
+<rect x="1260.8" y="1866.0" width="118.4" height="17" fill="#fff" opacity=".88"/>
+<text x="1320.0" y="1878.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">(roles_permisos)</text>
+<line x1="1201" y1="1897" x2="1438" y2="1897" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<path d="M275 1927 h46 v16 l-8 8 h-38 z" fill="#9db0b7" opacity=".55"/>
+<text x="283" y="1944" font-size="12" font-weight="700" fill="#10222b">alt</text>
+<rect x="331.0" y="1933.0" width="208.1" height="17" fill="#fff" opacity=".88"/>
+<text x="335.0" y="1945.0" font-size="12" fill="#5a6d76" text-anchor="start" font-weight="600">[el rol no tiene tickets.ver]</text>
+<rect x="378.1" y="1961.0" width="228.8" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="1973.0" font-size="12" fill="#a42a1f" text-anchor="middle" font-weight="normal">4. 403 · «Tu rol no permite esta</text>
+<rect x="464.4" y="1976.0" width="56.3" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="1988.0" font-size="12" fill="#a42a1f" text-anchor="middle" font-weight="normal">acción»</text>
+<line x1="634" y1="2007" x2="352" y2="2007" stroke="#a42a1f" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#flecha-err)"/>
+<line x1="275" y1="2033" x2="1515" y2="2033" stroke="#9db0b7" stroke-width="1.2" stroke-dasharray="7 5"/>
+<rect x="281.0" y="2039.0" width="187.4" height="17" fill="#fff" opacity=".88"/>
+<text x="285.0" y="2051.0" font-size="12" fill="#5a6d76" text-anchor="start" font-weight="600">[el rol tiene tickets.ver]</text>
+<rect x="820.4" y="2065.0" width="194.3" height="17" fill="#fff" opacity=".88"/>
+<text x="917.5" y="2077.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">5. ticket_visible_o_404(id)</text>
+<line x1="646" y1="2096" x2="1188" y2="2096" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="1250.5" y="2108.0" width="139.1" height="17" fill="#fff" opacity=".88"/>
+<text x="1320.0" y="2120.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">6. SELECT tickets +</text>
+<rect x="1240.1" y="2123.0" width="159.8" height="17" fill="#fff" opacity=".88"/>
+<text x="1320.0" y="2135.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">participaciones_ticket</text>
+<line x1="1201" y1="2154" x2="1438" y2="2154" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<path d="M287 2184 h46 v16 l-8 8 h-38 z" fill="#9db0b7" opacity=".55"/>
+<text x="295" y="2201" font-size="12" font-weight="700" fill="#10222b">alt</text>
+<rect x="343.0" y="2190.0" width="394.4" height="17" fill="#fff" opacity=".88"/>
+<text x="347.0" y="2202.0" font-size="12" fill="#5a6d76" text-anchor="start" font-weight="600">[no existe, o no participa y no tiene tickets.ver_todos]</text>
+<rect x="374.6" y="2218.0" width="235.7" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="2230.0" font-size="12" fill="#a42a1f" text-anchor="middle" font-weight="normal">7. 404 · misma respuesta en ambos</text>
+<rect x="395.3" y="2233.0" width="194.3" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="2245.0" font-size="12" fill="#a42a1f" text-anchor="middle" font-weight="normal">casos (no revela si existe)</text>
+<line x1="634" y1="2264" x2="352" y2="2264" stroke="#a42a1f" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#flecha-err)"/>
+<line x1="287" y1="2290" x2="1503" y2="2290" stroke="#9db0b7" stroke-width="1.2" stroke-dasharray="7 5"/>
+<rect x="293.0" y="2296.0" width="353.0" height="17" fill="#fff" opacity=".88"/>
+<text x="297.0" y="2308.0" font-size="12" fill="#5a6d76" text-anchor="start" font-weight="600">[participa en el ticket o tiene tickets.ver_todos]</text>
+<rect x="374.6" y="2322.0" width="235.7" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="2334.0" font-size="12" fill="#1f6b4d" text-anchor="middle" font-weight="normal">8. 200 · detalle del ticket y sus</text>
+<rect x="443.6" y="2337.0" width="97.7" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="2349.0" font-size="12" fill="#1f6b4d" text-anchor="middle" font-weight="normal">participantes</text>
+<line x1="634" y1="2368" x2="352" y2="2368" stroke="#1f6b4d" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#flecha-ok)"/>
+<text x="275" y="2448" font-size="13" font-weight="700" fill="#3b4a8f">Editar el título de un ticket</text>
+<line x1="275" y1="2455" x2="1530" y2="2455" stroke="#3b4a8f" stroke-width="1" opacity=".35"/>
+<rect x="360.8" y="2474.0" width="263.3" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="2486.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">9. POST /tickets/{id}/editar (titulo)</text>
+<line x1="351" y1="2505" x2="633" y2="2505" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="678.9" y="2517.0" width="477.2" height="17" fill="#fff" opacity=".88"/>
+<text x="917.5" y="2529.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">10. permiso_required(&#x27;tickets.editar&#x27;) y ticket_editable_o_error(id)</text>
+<line x1="646" y1="2548" x2="1188" y2="2548" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="1212.5" y="2560.0" width="215.0" height="17" fill="#fff" opacity=".88"/>
+<text x="1320.0" y="2572.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">11. SELECT permisos, tickets y</text>
+<rect x="1240.1" y="2575.0" width="159.8" height="17" fill="#fff" opacity=".88"/>
+<text x="1320.0" y="2587.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">participaciones_ticket</text>
+<line x1="1201" y1="2606" x2="1438" y2="2606" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<path d="M275 2636 h46 v16 l-8 8 h-38 z" fill="#9db0b7" opacity=".55"/>
+<text x="283" y="2653" font-size="12" font-weight="700" fill="#10222b">alt</text>
+<rect x="331.0" y="2642.0" width="228.8" height="17" fill="#fff" opacity=".88"/>
+<text x="335.0" y="2654.0" font-size="12" fill="#5a6d76" text-anchor="start" font-weight="600">[el rol no tiene tickets.editar]</text>
+<rect x="464.4" y="2670.0" width="56.3" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="2682.0" font-size="12" fill="#a42a1f" text-anchor="middle" font-weight="normal">12. 403</text>
+<line x1="634" y1="2701" x2="352" y2="2701" stroke="#a42a1f" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#flecha-err)"/>
+<line x1="275" y1="2727" x2="1515" y2="2727" stroke="#9db0b7" stroke-width="1.2" stroke-dasharray="7 5"/>
+<rect x="281.0" y="2733.0" width="394.4" height="17" fill="#fff" opacity=".88"/>
+<text x="285.0" y="2745.0" font-size="12" fill="#5a6d76" text-anchor="start" font-weight="600">[no existe, o no participa y no tiene tickets.ver_todos]</text>
+<rect x="464.4" y="2759.0" width="56.3" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="2771.0" font-size="12" fill="#a42a1f" text-anchor="middle" font-weight="normal">13. 404</text>
+<line x1="634" y1="2790" x2="352" y2="2790" stroke="#a42a1f" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#flecha-err)"/>
+<line x1="275" y1="2816" x2="1515" y2="2816" stroke="#9db0b7" stroke-width="1.2" stroke-dasharray="7 5"/>
+<rect x="281.0" y="2822.0" width="491.0" height="17" fill="#fff" opacity=".88"/>
+<text x="285.0" y="2834.0" font-size="12" fill="#5a6d76" text-anchor="start" font-weight="600">[ve el ticket, pero no es responsable y no tiene tickets.editar_todos]</text>
+<rect x="464.4" y="2848.0" width="56.3" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="2860.0" font-size="12" fill="#a42a1f" text-anchor="middle" font-weight="normal">14. 403</text>
+<line x1="634" y1="2879" x2="352" y2="2879" stroke="#a42a1f" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#flecha-err)"/>
+<line x1="275" y1="2905" x2="1515" y2="2905" stroke="#9db0b7" stroke-width="1.2" stroke-dasharray="7 5"/>
+<rect x="281.0" y="2911.0" width="401.3" height="17" fill="#fff" opacity=".88"/>
+<text x="285.0" y="2923.0" font-size="12" fill="#5a6d76" text-anchor="start" font-weight="600">[es responsable del ticket, o tiene tickets.editar_todos]</text>
+<path d="M646 2949 h34 v38 h-30" fill="none" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="684.0" y="2951.0" width="228.8" height="17" fill="#fff" opacity=".88"/>
+<text x="688.0" y="2963.0" font-size="12" fill="#10222b" text-anchor="start" font-weight="normal">15. validar_titulo(): de 3 a 200</text>
+<rect x="684.0" y="2966.0" width="77.0" height="17" fill="#fff" opacity=".88"/>
+<text x="688.0" y="2978.0" font-size="12" fill="#10222b" text-anchor="start" font-weight="normal">caracteres</text>
+<path d="M287 3017 h46 v16 l-8 8 h-38 z" fill="#9db0b7" opacity=".55"/>
+<text x="295" y="3034" font-size="12" font-weight="700" fill="#10222b">alt</text>
+<rect x="343.0" y="3023.0" width="125.3" height="17" fill="#fff" opacity=".88"/>
+<text x="347.0" y="3035.0" font-size="12" fill="#5a6d76" text-anchor="start" font-weight="600">[título inválido]</text>
+<rect x="388.4" y="3051.0" width="208.1" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="3063.0" font-size="12" fill="#a42a1f" text-anchor="middle" font-weight="normal">16. 400 · mensaje en el campo</text>
+<line x1="634" y1="3082" x2="352" y2="3082" stroke="#a42a1f" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#flecha-err)"/>
+<line x1="287" y1="3108" x2="1503" y2="3108" stroke="#9db0b7" stroke-width="1.2" stroke-dasharray="7 5"/>
+<rect x="293.0" y="3114.0" width="111.5" height="17" fill="#fff" opacity=".88"/>
+<text x="297.0" y="3126.0" font-size="12" fill="#5a6d76" text-anchor="start" font-weight="600">[título válido]</text>
+<rect x="938.5" y="3140.0" width="208.1" height="17" fill="#fff" opacity=".88"/>
+<text x="1042.5" y="3152.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">17. UPDATE tickets SET titulo</text>
+<line x1="646" y1="3171" x2="1438" y2="3171" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="416.1" y="3183.0" width="152.9" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="3195.0" font-size="12" fill="#1f6b4d" text-anchor="middle" font-weight="normal">18. 302 /tickets/{id}</text>
+<line x1="634" y1="3214" x2="352" y2="3214" stroke="#1f6b4d" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#flecha-ok)"/>
+<text x="275" y="3294" font-size="13" font-weight="700" fill="#3b4a8f">Crear un ticket (Solicitante o Administrador)</text>
+<line x1="275" y1="3301" x2="1530" y2="3301" stroke="#3b4a8f" stroke-width="1" opacity=".35"/>
+<rect x="378.1" y="3320.0" width="228.8" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="3332.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">19. POST /tickets/registrar (formulario)</text>
+<line x1="351" y1="3351" x2="633" y2="3351" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="785.8" y="3363.0" width="263.3" height="17" fill="#fff" opacity=".88"/>
+<text x="917.5" y="3375.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">20. permiso_required(&#x27;tickets.crear&#x27;)</text>
+<line x1="646" y1="3394" x2="1188" y2="3394" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="1222.8" y="3406.0" width="194.3" height="17" fill="#fff" opacity=".88"/>
+<text x="1320.0" y="3418.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">21. SELECT permisos del rol</text>
+<rect x="1260.8" y="3421.0" width="118.4" height="17" fill="#fff" opacity=".88"/>
+<text x="1320.0" y="3433.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">(roles_permisos)</text>
+<line x1="1201" y1="3452" x2="1438" y2="3452" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<path d="M275 3482 h46 v16 l-8 8 h-38 z" fill="#9db0b7" opacity=".55"/>
+<text x="283" y="3499" font-size="12" font-weight="700" fill="#10222b">alt</text>
+<rect x="331.0" y="3488.0" width="408.2" height="17" fill="#fff" opacity=".88"/>
+<text x="335.0" y="3500.0" font-size="12" fill="#5a6d76" text-anchor="start" font-weight="600">[el rol no tiene tickets.crear (por ejemplo, Responsable)]</text>
+<rect x="464.4" y="3516.0" width="56.3" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="3528.0" font-size="12" fill="#a42a1f" text-anchor="middle" font-weight="normal">22. 403</text>
+<line x1="634" y1="3547" x2="352" y2="3547" stroke="#a42a1f" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#flecha-err)"/>
+<line x1="275" y1="3573" x2="1515" y2="3573" stroke="#9db0b7" stroke-width="1.2" stroke-dasharray="7 5"/>
+<rect x="281.0" y="3579.0" width="201.2" height="17" fill="#fff" opacity=".88"/>
+<text x="285.0" y="3591.0" font-size="12" fill="#5a6d76" text-anchor="start" font-weight="600">[el rol tiene tickets.crear]</text>
+<rect x="741.8" y="3605.0" width="601.4" height="17" fill="#fff" opacity=".88"/>
+<text x="1042.5" y="3617.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">23. INSERT tickets + INSERT participaciones_ticket (quien crea queda como solicitante)</text>
+<line x1="646" y1="3636" x2="1438" y2="3636" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="416.1" y="3648.0" width="152.9" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="3660.0" font-size="12" fill="#1f6b4d" text-anchor="middle" font-weight="normal">24. 302 /tickets/{id}</text>
+<line x1="634" y1="3679" x2="352" y2="3679" stroke="#1f6b4d" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#flecha-ok)"/>
+<text x="275" y="3731" font-size="13" font-weight="700" fill="#3b4a8f">Asignar una persona a un ticket (Administrador)</text>
+<line x1="275" y1="3738" x2="1530" y2="3738" stroke="#3b4a8f" stroke-width="1" opacity=".35"/>
+<rect x="364.3" y="3757.0" width="256.4" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="3769.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">25. POST /tickets/{id}/participantes</text>
+<rect x="378.1" y="3772.0" width="228.8" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="3784.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">(usuario_id, tipo_participacion)</text>
+<line x1="351" y1="3803" x2="633" y2="3803" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="779.0" y="3815.0" width="277.1" height="17" fill="#fff" opacity=".88"/>
+<text x="917.5" y="3827.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">26. permiso_required(&#x27;tickets.asignar&#x27;)</text>
+<line x1="646" y1="3846" x2="1188" y2="3846" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="1222.8" y="3858.0" width="194.3" height="17" fill="#fff" opacity=".88"/>
+<text x="1320.0" y="3870.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">27. SELECT permisos del rol</text>
+<rect x="1260.8" y="3873.0" width="118.4" height="17" fill="#fff" opacity=".88"/>
+<text x="1320.0" y="3885.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">(roles_permisos)</text>
+<line x1="1201" y1="3904" x2="1438" y2="3904" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<path d="M275 3934 h46 v16 l-8 8 h-38 z" fill="#9db0b7" opacity=".55"/>
+<text x="283" y="3951" font-size="12" font-weight="700" fill="#10222b">alt</text>
+<rect x="331.0" y="3940.0" width="235.7" height="17" fill="#fff" opacity=".88"/>
+<text x="335.0" y="3952.0" font-size="12" fill="#5a6d76" text-anchor="start" font-weight="600">[el rol no tiene tickets.asignar]</text>
+<rect x="464.4" y="3968.0" width="56.3" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="3980.0" font-size="12" fill="#a42a1f" text-anchor="middle" font-weight="normal">28. 403</text>
+<line x1="634" y1="3999" x2="352" y2="3999" stroke="#a42a1f" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#flecha-err)"/>
+<line x1="275" y1="4025" x2="1515" y2="4025" stroke="#9db0b7" stroke-width="1.2" stroke-dasharray="7 5"/>
+<rect x="281.0" y="4031.0" width="215.0" height="17" fill="#fff" opacity=".88"/>
+<text x="285.0" y="4043.0" font-size="12" fill="#5a6d76" text-anchor="start" font-weight="600">[el rol tiene tickets.asignar]</text>
+<path d="M646 4069 h34 v53 h-30" fill="none" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="684.0" y="4071.0" width="215.0" height="17" fill="#fff" opacity=".88"/>
+<text x="688.0" y="4083.0" font-size="12" fill="#10222b" text-anchor="start" font-weight="normal">29. valida tipo (solicitante o</text>
+<rect x="684.0" y="4086.0" width="235.7" height="17" fill="#fff" opacity=".88"/>
+<text x="688.0" y="4098.0" font-size="12" fill="#10222b" text-anchor="start" font-weight="normal">responsable), cuenta activa y rol</text>
+<rect x="684.0" y="4101.0" width="77.0" height="17" fill="#fff" opacity=".88"/>
+<text x="688.0" y="4113.0" font-size="12" fill="#10222b" text-anchor="start" font-weight="normal">compatible</text>
+<path d="M287 4152 h46 v16 l-8 8 h-38 z" fill="#9db0b7" opacity=".55"/>
+<text x="295" y="4169" font-size="12" font-weight="700" fill="#10222b">alt</text>
+<rect x="343.0" y="4158.0" width="125.3" height="17" fill="#fff" opacity=".88"/>
+<text x="347.0" y="4170.0" font-size="12" fill="#5a6d76" text-anchor="start" font-weight="600">[datos inválidos]</text>
+<rect x="429.9" y="4186.0" width="125.3" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="4198.0" font-size="12" fill="#a42a1f" text-anchor="middle" font-weight="normal">30. 400 · mensaje</text>
+<line x1="634" y1="4217" x2="352" y2="4217" stroke="#a42a1f" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#flecha-err)"/>
+<line x1="287" y1="4243" x2="1503" y2="4243" stroke="#9db0b7" stroke-width="1.2" stroke-dasharray="7 5"/>
+<rect x="293.0" y="4249.0" width="111.5" height="17" fill="#fff" opacity=".88"/>
+<text x="297.0" y="4261.0" font-size="12" fill="#5a6d76" text-anchor="start" font-weight="600">[datos válidos]</text>
+<rect x="772.8" y="4275.0" width="539.3" height="17" fill="#fff" opacity=".88"/>
+<text x="1042.5" y="4287.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">31. INSERT participaciones_ticket (ticket_id, usuario_id, tipo_participacion)</text>
+<line x1="646" y1="4306" x2="1438" y2="4306" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<path d="M299 4336 h46 v16 l-8 8 h-38 z" fill="#9db0b7" opacity=".55"/>
+<text x="307" y="4353" font-size="12" font-weight="700" fill="#10222b">alt</text>
+<rect x="355.0" y="4342.0" width="311.6" height="17" fill="#fff" opacity=".88"/>
+<text x="359.0" y="4354.0" font-size="12" fill="#5a6d76" text-anchor="start" font-weight="600">[ya existe esa participación (índice único)]</text>
+<rect x="357.4" y="4370.0" width="270.2" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="4382.0" font-size="12" fill="#a42a1f" text-anchor="middle" font-weight="normal">32. 409 · «Esa persona ya participa en</text>
+<rect x="409.1" y="4385.0" width="166.7" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="4397.0" font-size="12" fill="#a42a1f" text-anchor="middle" font-weight="normal">el ticket con ese tipo»</text>
+<line x1="634" y1="4416" x2="352" y2="4416" stroke="#a42a1f" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#flecha-err)"/>
+<line x1="299" y1="4442" x2="1491" y2="4442" stroke="#9db0b7" stroke-width="1.2" stroke-dasharray="7 5"/>
+<rect x="305.0" y="4448.0" width="152.9" height="17" fill="#fff" opacity=".88"/>
+<text x="309.0" y="4460.0" font-size="12" fill="#5a6d76" text-anchor="start" font-weight="600">[participación nueva]</text>
+<rect x="416.1" y="4474.0" width="152.9" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="4486.0" font-size="12" fill="#1f6b4d" text-anchor="middle" font-weight="normal">33. 302 /tickets/{id}</text>
+<line x1="634" y1="4505" x2="352" y2="4505" stroke="#1f6b4d" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#flecha-ok)"/>
+<text x="40" y="4655" font-size="16" font-weight="700" fill="#fff">HU-03</text><text x="104" y="4655" font-size="15" fill="#fff">Gestión de usuarios (módulo del compañero · las rutas se modelan según el texto de la HU)</text>
+<rect x="255" y="4699" width="1280" height="31" rx="6" fill="#fff6dd" stroke="#e7a21d" stroke-width="1"/>
+<text x="267.0" y="4718.0" font-size="12" fill="#5b4300" text-anchor="start" font-weight="normal">Se dibuja desde el texto de la HU-03. Si las rutas o funciones del módulo de tu compañero se llaman distinto, edita estas líneas en docs/generar_diagrama.py y vuelve a generar.</text>
+<text x="275" y="4750" font-size="13" font-weight="700" fill="#6a4a1f">Registrar un usuario (Administrador)</text>
+<line x1="275" y1="4757" x2="1530" y2="4757" stroke="#6a4a1f" stroke-width="1" opacity=".35"/>
+<rect x="138.8" y="4776.0" width="187.4" height="17" fill="#fff" opacity=".88"/>
+<text x="232.5" y="4788.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">1. Completa el formulario:</text>
+<rect x="156.1" y="4791.0" width="152.9" height="17" fill="#fff" opacity=".88"/>
+<text x="232.5" y="4803.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">identificador_acceso,</text>
+<rect x="149.1" y="4806.0" width="166.7" height="17" fill="#fff" opacity=".88"/>
+<text x="232.5" y="4818.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">nombre_completo, correo</text>
+<rect x="131.9" y="4821.0" width="201.2" height="17" fill="#fff" opacity=".88"/>
+<text x="232.5" y="4833.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">(opcional), rol y contraseña</text>
+<line x1="126" y1="4852" x2="338" y2="4852" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="402.2" y="4864.0" width="180.5" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="4876.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">2. POST registrar usuario</text>
+<line x1="351" y1="4895" x2="633" y2="4895" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="751.4" y="4907.0" width="332.3" height="17" fill="#fff" opacity=".88"/>
+<text x="917.5" y="4919.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">3. verifica que el rol puede gestionar usuarios</text>
+<line x1="646" y1="4938" x2="1188" y2="4938" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="1226.3" y="4950.0" width="187.4" height="17" fill="#fff" opacity=".88"/>
+<text x="1320.0" y="4962.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">4. SELECT permisos del rol</text>
+<rect x="1260.8" y="4965.0" width="118.4" height="17" fill="#fff" opacity=".88"/>
+<text x="1320.0" y="4977.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">(roles_permisos)</text>
+<line x1="1201" y1="4996" x2="1438" y2="4996" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<path d="M275 5026 h46 v16 l-8 8 h-38 z" fill="#9db0b7" opacity=".55"/>
+<text x="283" y="5043" font-size="12" font-weight="700" fill="#10222b">alt</text>
+<rect x="331.0" y="5032.0" width="201.2" height="17" fill="#fff" opacity=".88"/>
+<text x="335.0" y="5044.0" font-size="12" fill="#5a6d76" text-anchor="start" font-weight="600">[el rol no es Administrador]</text>
+<rect x="467.8" y="5060.0" width="49.4" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="5072.0" font-size="12" fill="#a42a1f" text-anchor="middle" font-weight="normal">5. 403</text>
+<line x1="634" y1="5091" x2="352" y2="5091" stroke="#a42a1f" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#flecha-err)"/>
+<line x1="275" y1="5117" x2="1515" y2="5117" stroke="#9db0b7" stroke-width="1.2" stroke-dasharray="7 5"/>
+<rect x="281.0" y="5123.0" width="180.5" height="17" fill="#fff" opacity=".88"/>
+<text x="285.0" y="5135.0" font-size="12" fill="#5a6d76" text-anchor="start" font-weight="600">[el rol es Administrador]</text>
+<path d="M646 5161 h34 v38 h-30" fill="none" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="684.0" y="5163.0" width="235.7" height="17" fill="#fff" opacity=".88"/>
+<text x="688.0" y="5175.0" font-size="12" fill="#10222b" text-anchor="start" font-weight="normal">6. valida obligatorios, formato y</text>
+<rect x="684.0" y="5178.0" width="77.0" height="17" fill="#fff" opacity=".88"/>
+<text x="688.0" y="5190.0" font-size="12" fill="#10222b" text-anchor="start" font-weight="normal">contraseña</text>
+<path d="M287 5229 h46 v16 l-8 8 h-38 z" fill="#9db0b7" opacity=".55"/>
+<text x="295" y="5246" font-size="12" font-weight="700" fill="#10222b">alt</text>
+<rect x="343.0" y="5235.0" width="125.3" height="17" fill="#fff" opacity=".88"/>
+<text x="347.0" y="5247.0" font-size="12" fill="#5a6d76" text-anchor="start" font-weight="600">[datos inválidos]</text>
+<rect x="398.8" y="5263.0" width="187.4" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="5275.0" font-size="12" fill="#a42a1f" text-anchor="middle" font-weight="normal">7. 400 · mensaje por campo</text>
+<line x1="634" y1="5294" x2="352" y2="5294" stroke="#a42a1f" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#flecha-err)"/>
+<line x1="287" y1="5320" x2="1503" y2="5320" stroke="#9db0b7" stroke-width="1.2" stroke-dasharray="7 5"/>
+<rect x="293.0" y="5326.0" width="111.5" height="17" fill="#fff" opacity=".88"/>
+<text x="297.0" y="5338.0" font-size="12" fill="#5a6d76" text-anchor="start" font-weight="600">[datos válidos]</text>
+<rect x="869.5" y="5352.0" width="346.1" height="17" fill="#fff" opacity=".88"/>
+<text x="1042.5" y="5364.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">8. SELECT usuarios WHERE identificador_acceso = ?</text>
+<line x1="646" y1="5383" x2="1438" y2="5383" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="990.2" y="5395.0" width="104.6" height="17" fill="#fff" opacity=".88"/>
+<text x="1042.5" y="5407.0" font-size="12" fill="#5a6d76" text-anchor="middle" font-weight="normal">9. existe o no</text>
+<line x1="1439" y1="5426" x2="647" y2="5426" stroke="#5a6d76" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#flecha-res)"/>
+<path d="M299 5456 h46 v16 l-8 8 h-38 z" fill="#9db0b7" opacity=".55"/>
+<text x="307" y="5473" font-size="12" font-weight="700" fill="#10222b">alt</text>
+<rect x="355.0" y="5462.0" width="180.5" height="17" fill="#fff" opacity=".88"/>
+<text x="359.0" y="5474.0" font-size="12" fill="#5a6d76" text-anchor="start" font-weight="600">[identificador duplicado]</text>
+<rect x="357.4" y="5490.0" width="270.2" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="5502.0" font-size="12" fill="#a42a1f" text-anchor="middle" font-weight="normal">10. 409 · «El identificador ya está en</text>
+<rect x="474.7" y="5505.0" width="35.6" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="5517.0" font-size="12" fill="#a42a1f" text-anchor="middle" font-weight="normal">uso»</text>
+<line x1="634" y1="5536" x2="352" y2="5536" stroke="#a42a1f" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#flecha-err)"/>
+<line x1="299" y1="5562" x2="1491" y2="5562" stroke="#9db0b7" stroke-width="1.2" stroke-dasharray="7 5"/>
+<rect x="305.0" y="5568.0" width="152.9" height="17" fill="#fff" opacity=".88"/>
+<text x="309.0" y="5580.0" font-size="12" fill="#5a6d76" text-anchor="start" font-weight="600">[identificador libre]</text>
+<rect x="831.5" y="5594.0" width="422.0" height="17" fill="#fff" opacity=".88"/>
+<text x="1042.5" y="5606.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">11. INSERT usuarios (contrasena_hash, rol_id, activo = true)</text>
+<line x1="646" y1="5625" x2="1438" y2="5625" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="395.3" y="5637.0" width="194.3" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="5649.0" font-size="12" fill="#1f6b4d" text-anchor="middle" font-weight="normal">12. 302 listado de usuarios</text>
+<line x1="634" y1="5668" x2="352" y2="5668" stroke="#1f6b4d" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#flecha-ok)"/>
+<text x="275" y="5776" font-size="13" font-weight="700" fill="#6a4a1f">Actualizar rol y estado de una cuenta (Administrador)</text>
+<line x1="275" y1="5783" x2="1530" y2="5783" stroke="#6a4a1f" stroke-width="1" opacity=".35"/>
+<rect x="395.3" y="5802.0" width="194.3" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="5814.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">13. POST actualizar usuario</text>
+<rect x="374.6" y="5817.0" width="235.7" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="5829.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">(nombre_completo, correo, rol_id)</text>
+<line x1="351" y1="5848" x2="633" y2="5848" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="697.0" y="5860.0" width="691.1" height="17" fill="#fff" opacity=".88"/>
+<text x="1042.5" y="5872.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">14. UPDATE usuarios SET ..., rol_id, actualizado_en (mismas comprobaciones de permiso y validación)</text>
+<line x1="646" y1="5891" x2="1438" y2="5891" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="395.3" y="5903.0" width="194.3" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="5915.0" font-size="12" fill="#1f6b4d" text-anchor="middle" font-weight="normal">15. 302 listado de usuarios</text>
+<line x1="634" y1="5934" x2="352" y2="5934" stroke="#1f6b4d" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#flecha-ok)"/>
+<rect x="374.6" y="5946.0" width="235.7" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="5958.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">16. POST cambiar estado (activo =</text>
+<rect x="467.8" y="5961.0" width="49.4" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="5973.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">false)</text>
+<line x1="351" y1="5992" x2="633" y2="5992" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="852.2" y="6004.0" width="380.6" height="17" fill="#fff" opacity=".88"/>
+<text x="1042.5" y="6016.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">17. UPDATE usuarios SET activo = false, actualizado_en</text>
+<line x1="646" y1="6035" x2="1438" y2="6035" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="395.3" y="6047.0" width="194.3" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="6059.0" font-size="12" fill="#1f6b4d" text-anchor="middle" font-weight="normal">18. 302 listado de usuarios</text>
+<line x1="634" y1="6078" x2="352" y2="6078" stroke="#1f6b4d" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#flecha-ok)"/>
+<text x="275" y="6102" font-size="13" font-weight="700" fill="#6a4a1f">Efecto de la cuenta desactivada en HU-01 y HU-02</text>
+<line x1="275" y1="6109" x2="1530" y2="6109" stroke="#6a4a1f" stroke-width="1" opacity=".35"/>
+<rect x="388.4" y="6128.0" width="208.1" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="6140.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">19. POST /login con la cuenta</text>
+<rect x="450.6" y="6143.0" width="83.9" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="6155.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">desactivada</text>
+<line x1="351" y1="6174" x2="633" y2="6174" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<path d="M646 6198 h34 v38 h-30" fill="none" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="684.0" y="6200.0" width="235.7" height="17" fill="#fff" opacity=".88"/>
+<text x="688.0" y="6212.0" font-size="12" fill="#10222b" text-anchor="start" font-weight="normal">20. autenticar(): usuarios.activo</text>
+<rect x="684.0" y="6215.0" width="56.3" height="17" fill="#fff" opacity=".88"/>
+<text x="688.0" y="6227.0" font-size="12" fill="#10222b" text-anchor="start" font-weight="normal">= false</text>
+<rect x="367.8" y="6248.0" width="249.5" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="6260.0" font-size="12" fill="#a42a1f" text-anchor="middle" font-weight="normal">21. 401 · el mismo mensaje genérico</text>
+<rect x="374.6" y="6263.0" width="235.7" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="6275.0" font-size="12" fill="#a42a1f" text-anchor="middle" font-weight="normal">que cualquier credencial inválida</text>
+<line x1="634" y1="6294" x2="352" y2="6294" stroke="#a42a1f" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#flecha-err)"/>
+<rect x="357.4" y="6306.0" width="270.2" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="6318.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">22. GET /tickets con una sesión que ya</text>
+<rect x="440.2" y="6321.0" width="104.6" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="6333.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">estaba abierta</text>
+<line x1="351" y1="6352" x2="633" y2="6352" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="650.8" y="6364.0" width="263.3" height="17" fill="#fff" opacity=".88"/>
+<text x="782.5" y="6376.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">23. cargar_usuario(): la cuenta ya no</text>
+<rect x="740.5" y="6379.0" width="83.9" height="17" fill="#fff" opacity=".88"/>
+<text x="782.5" y="6391.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">está activa</text>
+<line x1="646" y1="6410" x2="918" y2="6410" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="1036.1" y="6422.0" width="297.8" height="17" fill="#fff" opacity=".88"/>
+<text x="1185.0" y="6434.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">24. UPDATE sesiones SET cerrada_en = ahora</text>
+<line x1="931" y1="6453" x2="1438" y2="6453" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="364.3" y="6465.0" width="256.4" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="6477.0" font-size="12" fill="#a42a1f" text-anchor="middle" font-weight="normal">25. 302 /login · pierde el acceso en</text>
+<rect x="416.1" y="6480.0" width="152.9" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="6492.0" font-size="12" fill="#a42a1f" text-anchor="middle" font-weight="normal">la siguiente petición</text>
+<line x1="634" y1="6511" x2="352" y2="6511" stroke="#a42a1f" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#flecha-err)"/>
+<rect x="357.4" y="6523.0" width="270.2" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="6535.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">26. GET /tickets tras cambiarle el rol</text>
+<rect x="395.3" y="6538.0" width="194.3" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="6550.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">(por ejemplo, Responsable a</text>
+<rect x="447.1" y="6553.0" width="90.8" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="6565.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">Solicitante)</text>
+<line x1="351" y1="6584" x2="633" y2="6584" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="709.9" y="6596.0" width="415.1" height="17" fill="#fff" opacity=".88"/>
+<text x="917.5" y="6608.0" font-size="12" fill="#10222b" text-anchor="middle" font-weight="normal">27. los permisos se leen de roles_permisos en cada petición</text>
+<line x1="646" y1="6627" x2="1188" y2="6627" stroke="#10222b" stroke-width="1.6" marker-end="url(#flecha-req)"/>
+<rect x="364.3" y="6639.0" width="256.4" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="6651.0" font-size="12" fill="#a42a1f" text-anchor="middle" font-weight="normal">28. 403 en las acciones que el nuevo</text>
+<rect x="440.2" y="6654.0" width="104.6" height="17" fill="#fff" opacity=".88"/>
+<text x="492.5" y="6666.0" font-size="12" fill="#a42a1f" text-anchor="middle" font-weight="normal">rol no permite</text>
+<line x1="634" y1="6685" x2="352" y2="6685" stroke="#a42a1f" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#flecha-err)"/>
+<rect x="35.0" y="6729" width="170" height="46" rx="8" fill="#10222b"/><text x="120" y="6749" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">Usuario</text><text x="120" y="6765" font-size="10.5" fill="#9fb7bf" text-anchor="middle">según su rol</text><rect x="260.0" y="6729" width="170" height="46" rx="8" fill="#10222b"/><text x="345" y="6749" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">Navegador</text><text x="345" y="6765" font-size="10.5" fill="#9fb7bf" text-anchor="middle">cliente</text><rect x="555.0" y="6729" width="170" height="46" rx="8" fill="#10222b"/><text x="640" y="6749" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">Flask</text><text x="640" y="6765" font-size="10.5" fill="#9fb7bf" text-anchor="middle">auth · tickets · main</text><rect x="840.0" y="6729" width="170" height="46" rx="8" fill="#10222b"/><text x="925" y="6749" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">security.py</text><text x="925" y="6765" font-size="10.5" fill="#9fb7bf" text-anchor="middle">sesión del servidor</text><rect x="1110.0" y="6729" width="170" height="46" rx="8" fill="#10222b"/><text x="1195" y="6749" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">autorizacion.py</text><text x="1195" y="6765" font-size="10.5" fill="#9fb7bf" text-anchor="middle">roles y participación</text><rect x="1360.0" y="6729" width="170" height="46" rx="8" fill="#10222b"/><text x="1445" y="6749" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">MySQL</text><text x="1445" y="6765" font-size="10.5" fill="#9fb7bf" text-anchor="middle">base de datos</text></svg>

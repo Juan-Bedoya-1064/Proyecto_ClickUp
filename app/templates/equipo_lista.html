@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}Equipos{% endblock %}
+{% block body %}
+{% include "_topbar.html" %}
+<main class="content">
+  {% include "_flashes.html" %}
+  <div class="page-head">
+    <div>
+      <h1>Equipos</h1>
+      <p class="lead">
+        {% if ver_inactivos %}Ves los equipos activos e inactivos.
+        {% else %}Ves los equipos activos. Búscalos por código o nombre, o filtra por tipo y ubicación.{% endif %}
+      </p>
+    </div>
+    {% if puede_administrar %}
+      <a class="btn btn--primary" href="{{ url_for('equipos.nuevo') }}">Nuevo equipo</a>
+    {% endif %}
+  </div>
+
+  <form class="panel filtros" method="get" action="{{ url_for('equipos.lista') }}">
+    <div class="field">
+      <label for="q">Código o nombre</label>
+      <input id="q" name="q" type="search" maxlength="150" value="{{ texto }}">
+    </div>
+    <div class="field">
+      <label for="tipo_id">Tipo</label>
+      <select id="tipo_id" name="tipo_id">
+        <option value="">Todos</option>
+        {% for t in tipos %}
+          <option value="{{ t.id }}" {% if t.id == tipo_id %}selected{% endif %}>{{ t.nombre }}{% if not t.activo %} (inactivo){% endif %}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="field">
+      <label for="ubicacion_id">Ubicación</label>
+      <select id="ubicacion_id" name="ubicacion_id">
+        <option value="">Todas</option>
+        {% for u in ubicaciones %}
+          <option value="{{ u.id }}" {% if u.id == ubicacion_id %}selected{% endif %}>{{ u.nombre }}{% if not u.activo %} (inactiva){% endif %}</option>
+        {% endfor %}
+      </select>
+    </div>
+    {% if puede_administrar %}
+      <label class="check"><input type="checkbox" name="inactivos" value="1" {% if ver_inactivos %}checked{% endif %}> Incluir inactivos</label>
+    {% endif %}
+    <button class="btn btn--primary" type="submit">Buscar</button>
+    <a class="btn btn--ghost" href="{{ url_for('equipos.lista') }}">Limpiar</a>
+  </form>
+
+  {% if equipos %}
+  <div class="table-wrap table-wrap--borde">
+    <table class="table table--equipos">
+      <thead>
+        <tr>
+          <th>Código</th><th>Nombre</th><th>Tipo</th><th>Ubicación</th><th>Mantenimiento preventivo</th>
+          {% if puede_administrar %}<th>Estado</th><th>Acciones</th>{% endif %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for e in equipos %}
+        <tr>
+          <td>{{ e.codigo }}</td>
+          <td>{{ e.nombre }}</td>
+          <td>{{ e.tipo.nombre }}{% if not e.tipo.activo %} <span class="tag tag--off">inactivo</span>{% endif %}</td>
+          <td>{{ e.ubicacion.nombre }}{% if not e.ubicacion.activo %} <span class="tag tag--off">inactiva</span>{% endif %}</td>
+          <td>
+            {% if e.tipo.periodicidad_meses %}Cada {{ e.tipo.periodicidad_meses }} {{ 'mes' if e.tipo.periodicidad_meses == 1 else 'meses' }}
+            {% else %}<span class="muted">No aplica</span>{% endif %}
+          </td>
+          {% if puede_administrar %}
+          <td>{% if e.activo %}<span class="tag tag--ok">activo</span>{% else %}<span class="tag tag--off">inactivo</span>{% endif %}</td>
+          <td>
+            <div class="row-actions">
+              <a class="btn btn--ghost btn--sm" href="{{ url_for('equipos.editar', equipo_id=e.id) }}">Editar</a>
+              <form method="post" action="{{ url_for('equipos.cambiar_estado', equipo_id=e.id) }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button class="btn btn--ghost btn--sm" type="submit">{{ 'Desactivar' if e.activo else 'Activar' }}</button>
+              </form>
+            </div>
+          </td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <p class="muted conteo">{{ equipos|length }} equipo{{ '' if equipos|length == 1 else 's' }}.</p>
+  {% else %}
+    <div class="panel empty">
+      <h2>No se encontraron equipos</h2>
+      <p class="muted">Prueba con otro texto o quita los filtros.</p>
+    </div>
+  {% endif %}
+</main>
+{% endblock %}

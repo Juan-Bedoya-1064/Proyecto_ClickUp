@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}Ticket #{{ ticket.id }}{% endblock %}
+{% block body %}
+{% include "_topbar.html" %}
+<main class="content">
+  {% include "_flashes.html" %}
+  {% if error %}<div class="alert alert--error" role="alert">{{ error }}</div>{% endif %}
+
+  <p class="crumb"><a href="{{ url_for('tickets.lista') }}">Tickets</a> / {{ ticket.solicitud.folio if ticket.solicitud else '#' ~ ticket.id }}</p>
+  <div class="page-head">
+    <div>
+      <h1>{{ ticket.titulo }}</h1>
+      <p class="lead">Creado el {{ ticket.creado_en|hora_local('%d/%m/%Y %I:%M %p') }}</p>
+    </div>
+    {% if puede_editar %}
+      <a class="btn btn--primary" href="{{ url_for('tickets.editar', ticket_id=ticket.id) }}">Editar título</a>
+    {% endif %}
+  </div>
+
+  {% if ticket.solicitud %}
+  {% set s = ticket.solicitud %}
+  <section class="panel seccion">
+    <h2>Solicitud de mantenimiento</h2>
+    <dl class="data">
+      <div><dt>Folio</dt><dd>{{ s.folio }}</dd></div>
+      <div><dt>Estado</dt><dd><span class="tag tag--{{ s.estado }}">{{ estados[s.estado] }}</span></dd></div>
+      <div><dt>Equipo</dt><dd>{{ s.equipo.codigo }} · {{ s.equipo.nombre }}{% if not s.equipo.activo %} <span class="tag tag--off">inactivo</span>{% endif %}</dd></div>
+      <div><dt>Área (ubicación del equipo)</dt><dd>{{ s.equipo.ubicacion.nombre }}</dd></div>
+      <div><dt>Categoría</dt><dd>{{ s.categoria.nombre }}</dd></div>
+      <div><dt>Prioridad</dt><dd><span class="tag tag--{{ s.prioridad }}">{{ prioridades[s.prioridad] }}</span></dd></div>
+      <div><dt>Detectado por</dt><dd>{{ s.detectado_por }}</dd></div>
+      <div><dt>Fecha de detección</dt><dd>{{ s.fecha_deteccion.strftime('%d/%m/%Y') }}</dd></div>
+      <div><dt>Fecha de registro</dt><dd>{{ ticket.creado_en|hora_local('%d/%m/%Y %I:%M %p') }}</dd></div>
+    </dl>
+    <h3>Situación</h3>
+    <p class="situacion">{{ s.situacion }}</p>
+    <h3>Evidencia</h3>
+    {% for a in ticket.adjuntos %}
+      <p><a href="{{ url_for('registro.descargar_adjunto', ticket_id=ticket.id, adjunto_id=a.id) }}">{{ a.nombre_original }}</a>
+         <span class="muted">({{ a.tamano_bytes|filesizeformat }})</span></p>
+    {% else %}
+      <p class="muted">Sin evidencia adjunta.</p>
+    {% endfor %}
+  </section>
+  {% endif %}
+
+  <section class="panel">
+    <h2>Participantes</h2>
+    <div class="table-wrap">
+      <table class="table">
+        <thead><tr><th>Persona</th><th>Participación</th></tr></thead>
+        <tbody>
+          {% for p in ticket.participaciones %}
+          <tr><td>{{ p.usuario.nombre_completo }}</td><td><span class="tag">{{ p.tipo_participacion }}</span></td></tr>
+          {% else %}
+          <tr><td colspan="2" class="muted">Sin participantes todavía.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    {% if puede_asignar %}
+    <form class="inline-form" method="post" action="{{ url_for('tickets.asignar', ticket_id=ticket.id) }}">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <div class="field">
+        <label for="usuario_id">Persona</label>
+        <select id="usuario_id" name="usuario_id" required>
+          {% for u in candidatos %}<option value="{{ u.id }}">{{ u.nombre_completo }} ({{ u.rol.nombre }})</option>{% endfor %}
+        </select>
+      </div>
+      <div class="field">
+        <label for="tipo_participacion">Participación</label>
+        <select id="tipo_participacion" name="tipo_participacion" required>
+          {% for t in tipos %}<option value="{{ t }}">{{ t }}</option>{% endfor %}
+        </select>
+      </div>
+      <button class="btn btn--primary" type="submit">Agregar</button>
+    </form>
+    {% endif %}
+  </section>
+</main>
+{% endblock %}

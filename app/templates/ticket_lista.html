@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% block title %}Tickets{% endblock %}
+{% block body %}
+{% include "_topbar.html" %}
+<main class="content">
+  {% include "_flashes.html" %}
+  <div class="page-head">
+    <div>
+      <h1>Tickets</h1>
+      <p class="lead">
+        {% if puede('tickets.ver_todos') %}Ves todos los tickets del sistema.
+        {% else %}Ves solo los tickets en los que participas.{% endif %}
+      </p>
+    </div>
+    {% if puede('tickets.crear') %}
+      <a class="btn btn--primary" href="{{ url_for('registro.registrar') }}">Registrar ticket</a>
+    {% endif %}
+  </div>
+
+  {# Los filtros solo tienen sentido si la persona ve al menos un ticket #}
+  {% if total_visibles %}
+  <form class="panel filtros" method="get" action="{{ url_for('tickets.lista') }}">
+    <div class="field">
+      <label for="folio">Folio</label>
+      <input id="folio" name="folio" type="search" maxlength="20" placeholder="TK-2026-00001" value="{{ filtros.folio }}">
+    </div>
+    <div class="field">
+      <label for="equipo_id">Equipo</label>
+      <select id="equipo_id" name="equipo_id">
+        <option value="">Todos</option>
+        {% for id, texto in opciones.equipos %}<option value="{{ id }}" {% if id == filtros.equipo_id %}selected{% endif %}>{{ texto }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="field">
+      <label for="area_id">Área</label>
+      <select id="area_id" name="area_id">
+        <option value="">Todas</option>
+        {% for id, texto in opciones.areas %}<option value="{{ id }}" {% if id == filtros.area_id %}selected{% endif %}>{{ texto }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="field">
+      <label for="solicitante_id">Solicitante</label>
+      <select id="solicitante_id" name="solicitante_id">
+        <option value="">Todos</option>
+        {% for id, texto in opciones.solicitantes %}<option value="{{ id }}" {% if id == filtros.solicitante_id %}selected{% endif %}>{{ texto }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="field">
+      <label for="responsable_id">Responsable</label>
+      <select id="responsable_id" name="responsable_id">
+        <option value="">Todos</option>
+        {% for id, texto in opciones.responsables %}<option value="{{ id }}" {% if id == filtros.responsable_id %}selected{% endif %}>{{ texto }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="field">
+      <label for="prioridad">Prioridad</label>
+      <select id="prioridad" name="prioridad">
+        <option value="">Todas</option>
+        {% for clave, texto in prioridades.items() %}<option value="{{ clave }}" {% if clave == filtros.prioridad %}selected{% endif %}>{{ texto }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="field">
+      <label for="estado">Estado</label>
+      <select id="estado" name="estado">
+        <option value="">Todos</option>
+        {% for clave, texto in estados.items() %}<option value="{{ clave }}" {% if clave == filtros.estado %}selected{% endif %}>{{ texto }}</option>{% endfor %}
+      </select>
+    </div>
+    <button class="btn btn--primary" type="submit">Filtrar</button>
+    <a class="btn btn--ghost" href="{{ url_for('tickets.lista') }}">Limpiar</a>
+  </form>
+  {% endif %}
+
+  {% if tickets %}
+  <div class="table-wrap table-wrap--borde">
+    <table class="table">
+      <thead><tr><th>Folio</th><th>Título</th><th>Equipo</th><th>Prioridad</th><th>Estado</th><th>Tu participación</th><th>Creado</th></tr></thead>
+      <tbody>
+        {% for t in tickets %}
+        {% set s = t.solicitud %}
+        <tr>
+          <td class="nowrap">{% if s %}{{ s.folio }}{% else %}#{{ t.id }}{% endif %}</td>
+          <td><a href="{{ url_for('tickets.detalle', ticket_id=t.id) }}">{{ t.titulo }}</a></td>
+          {% if s %}
+          <td><span class="nowrap">{{ s.equipo.codigo }}</span><br><small class="muted">{{ s.equipo.ubicacion.nombre }}</small></td>
+          <td><span class="tag tag--{{ s.prioridad }}">{{ prioridades[s.prioridad] }}</span></td>
+          <td class="nowrap"><span class="tag tag--{{ s.estado }}">{{ estados[s.estado] }}</span></td>
+          {% else %}
+          <td class="muted">—</td><td class="muted">—</td><td class="muted">—</td>
+          {% endif %}
+          <td>{% for tipo in mis_tipos.get(t.id, []) %}<span class="tag">{{ tipo }}</span> {% else %}<span class="muted">Sin participación</span>{% endfor %}</td>
+          <td>{{ t.creado_en|hora_local('%d/%m/%Y') }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <p class="muted conteo">
+    {% if hay_filtros %}{{ tickets|length }} de {{ total_visibles }} ticket{{ '' if total_visibles == 1 else 's' }} que puedes ver.
+    {% else %}{{ tickets|length }} ticket{{ '' if tickets|length == 1 else 's' }}.{% endif %}
+  </p>
+  {% elif hay_filtros %}
+    <div class="panel empty">
+      <h2>Ningún ticket coincide con los filtros</h2>
+      <p class="muted">Cambia los filtros o <a href="{{ url_for('tickets.lista') }}">límpialos</a> para ver todos tus tickets.</p>
+    </div>
+  {% else %}
+    <div class="panel empty">
+      <h2>Aún no participas en ningún ticket</h2>
+      <p class="muted">
+        {% if puede('tickets.crear') %}Registra tu primer ticket para empezar.{% else %}Cuando un administrador te asigne uno, aparecerá aquí.{% endif %}
+      </p>
+    </div>
+  {% endif %}
+</main>
+{% endblock %}

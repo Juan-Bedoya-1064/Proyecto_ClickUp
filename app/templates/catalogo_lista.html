@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Catálogos{% endblock %}
+{% block body %}
+{% include "_topbar.html" %}
+<main class="content">
+  {% include "_flashes.html" %}
+  <h1>Catálogos</h1>
+  <p class="lead">
+    Los valores no se borran: se desactivan. Un valor inactivo deja de ofrecerse en registros nuevos,
+    pero los equipos que ya lo usan lo conservan.
+  </p>
+
+  {% for clave, titulo, valores in catalogos %}
+  <section class="panel catalogo">
+    <div class="page-head">
+      <h2>{{ titulo }}</h2>
+      <a class="btn btn--primary btn--sm" href="{{ url_for('catalogos.nuevo', clave=clave) }}">Agregar</a>
+    </div>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            {% if clave == 'tipos-equipo' %}<th>Mantenimiento preventivo</th>{% endif %}
+            <th>Estado</th><th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for v in valores %}
+          <tr>
+            <td>{{ v.nombre }}</td>
+            {% if clave == 'tipos-equipo' %}
+            <td>
+              {% if v.periodicidad_meses %}Cada {{ v.periodicidad_meses }} {{ 'mes' if v.periodicidad_meses == 1 else 'meses' }}
+              {% else %}<span class="muted">No aplica</span>{% endif %}
+            </td>
+            {% endif %}
+            <td>{% if v.activo %}<span class="tag tag--ok">activo</span>{% else %}<span class="tag tag--off">inactivo</span>{% endif %}</td>
+            <td>
+              <div class="row-actions">
+                <a class="btn btn--ghost btn--sm" href="{{ url_for('catalogos.editar', clave=clave, valor_id=v.id) }}">Editar</a>
+                <form method="post" action="{{ url_for('catalogos.cambiar_estado', clave=clave, valor_id=v.id) }}">
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                  <button class="btn btn--ghost btn--sm" type="submit">{{ 'Desactivar' if v.activo else 'Activar' }}</button>
+                </form>
+              </div>
+            </td>
+          </tr>
+          {% else %}
+          <tr><td colspan="4" class="muted">Este catálogo todavía no tiene valores.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+  {% endfor %}
+</main>
+{% endblock %}

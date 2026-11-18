@@ -1,0 +1,41 @@
+services:
+  db:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-acceso_dev}
+      MYSQL_DATABASE: acceso_usuarios
+      TZ: UTC
+    command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+    volumes:
+      - mysqldata:/var/lib/mysql
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro   # esquema del diagrama relacional
+    ports:
+      - "127.0.0.1:3307:3306"   # 3307 para no chocar con el MySQL de XAMPP (Workbench/DBeaver)
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  web:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: mysql+pymysql://root:${MYSQL_ROOT_PASSWORD:-acceso_dev}@db:3306/acceso_usuarios?charset=utf8mb4
+      SECRET_KEY: ${SECRET_KEY:-clave-solo-para-desarrollo}
+      SESSION_MINUTES: ${SESSION_MINUTES:-30}
+      COOKIE_SECURE: ${COOKIE_SECURE:-0}
+      SEED_DEMO: ${SEED_DEMO:-1}
+      CARPETA_ADJUNTOS: /srv/adjuntos
+    volumes:
+      - adjuntos:/srv/adjuntos   # evidencia de los tickets (HU-05)
+    ports:
+      - "5000:5000"
+
+volumes:
+  mysqldata:
+  adjuntos:

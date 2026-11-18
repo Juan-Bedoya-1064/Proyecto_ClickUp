@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Mi panel{% endblock %}
+{% block body %}
+{% include "_topbar.html" %}
+<main class="content">
+  {% include "_flashes.html" %}
+  <h1>Hola, {{ usuario_actual.nombre_completo.split(' ')[0] }}</h1>
+  <p class="lead">Esta es una función protegida: solo la ves con una sesión activa.</p>
+
+  <div class="grid">
+    <section class="panel">
+      <h2>Tu sesión</h2>
+      <dl class="data">
+        <div><dt>Identificador</dt><dd>{{ usuario_actual.identificador_acceso }}</dd></div>
+        <div><dt>Rol</dt><dd>{{ usuario_actual.rol.nombre }}</dd></div>
+        <div><dt>Inició</dt><dd>{{ sesion.iniciada_en|hora_local('%d/%m/%Y %I:%M %p') }}</dd></div>
+        <div><dt>Vence por inactividad</dt><dd>{{ sesion.expira_en|hora_local('%I:%M %p') }}</dd></div>
+      </dl>
+    </section>
+
+    <section class="panel">
+      <h2>Lo que tu rol permite</h2>
+      <ul class="funciones">
+        {% for p in permisos %}
+          <li><span>{{ p.descripcion }}</span></li>
+        {% endfor %}
+      </ul>
+      {% if puede('tickets.ver') %}
+        <p class="panel__cta"><a class="btn btn--primary" href="{{ url_for('tickets.lista') }}">Ir a tickets</a></p>
+      {% endif %}
+    </section>
+  </div>
+</main>
+{% endblock %}

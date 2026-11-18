@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Nuevo equipo' if es_nuevo else 'Editar equipo' }}{% endblock %}
+{% block body %}
+{% include "_topbar.html" %}
+<main class="content content--narrow">
+  <p class="crumb"><a href="{{ url_for('equipos.lista') }}">Equipos</a> / {{ 'Nuevo' if es_nuevo else datos.codigo }}</p>
+  <h1>{{ 'Nuevo equipo' if es_nuevo else 'Editar equipo' }}</h1>
+  <form class="panel form--wide" method="post" novalidate>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+    <div class="field {% if errores.codigo %}field--error{% endif %}">
+      <label for="codigo">Código de inventario</label>
+      <input id="codigo" name="codigo" type="text" maxlength="30" value="{{ datos.codigo }}" placeholder="PC-001" required autofocus>
+      {% if errores.codigo %}<p class="field__msg">{{ errores.codigo }}</p>{% endif %}
+    </div>
+
+    <div class="field {% if errores.nombre %}field--error{% endif %}">
+      <label for="nombre">Nombre</label>
+      <input id="nombre" name="nombre" type="text" maxlength="150" value="{{ datos.nombre }}" required>
+      {% if errores.nombre %}<p class="field__msg">{{ errores.nombre }}</p>{% endif %}
+    </div>
+
+    <div class="field {% if errores.tipo_id %}field--error{% endif %}">
+      <label for="tipo_id">Tipo de equipo</label>
+      <select id="tipo_id" name="tipo_id" required>
+        <option value="">Elige un tipo</option>
+        {% for t in tipos %}
+          <option value="{{ t.id }}" {% if t.id == datos.tipo_id %}selected{% endif %}>{{ t.nombre }}{% if not t.activo %} (inactivo){% endif %}</option>
+        {% endfor %}
+      </select>
+      {% if errores.tipo_id %}<p class="field__msg">{{ errores.tipo_id }}</p>{% endif %}
+    </div>
+
+    <div class="field {% if errores.ubicacion_id %}field--error{% endif %}">
+      <label for="ubicacion_id">Ubicación</label>
+      <select id="ubicacion_id" name="ubicacion_id" required>
+        <option value="">Elige una ubicación</option>
+        {% for u in ubicaciones %}
+          <option value="{{ u.id }}" {% if u.id == datos.ubicacion_id %}selected{% endif %}>{{ u.nombre }}{% if not u.activo %} (inactiva){% endif %}</option>
+        {% endfor %}
+      </select>
+      {% if errores.ubicacion_id %}<p class="field__msg">{{ errores.ubicacion_id }}</p>{% endif %}
+    </div>
+
+    <div class="actions">
+      <button class="btn btn--primary" type="submit">Guardar</button>
+      <a class="btn btn--ghost" href="{{ url_for('equipos.lista') }}">Cancelar</a>
+    </div>
+  </form>
+</main>
+{% endblock %}
