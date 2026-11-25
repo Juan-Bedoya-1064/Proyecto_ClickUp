@@ -1,6 +1,3 @@
-
-4
-
 # Sprint 1 · Acceso y usuarios
 
 | HU | Historia | Estado |
